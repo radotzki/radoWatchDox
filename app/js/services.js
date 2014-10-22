@@ -4,8 +4,8 @@
 
 angular.module('radoWatchDox.services', [])
 .value('instagramAuthUrl', 'https://instagram.com/oauth/authorize/?response_type=token' +
- '&client_id=' +'a9a40b386e6649bea01158542b42df5c' +
- '&redirect_uri=' + 'http://radowatchdox.herokuapp.com/callback')
+ '&client_id=' +'7ec7b39f3a4e4eba812017a561b155af' +
+ '&redirect_uri=' + 'http://localhost:5000/callback')
 
 .factory('InstagramToken', [function() {
   var token;

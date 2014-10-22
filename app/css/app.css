@@ -1,3 +1,11 @@
-.img-rounded {height:200px; width:200px; margin:10px}
+.img-rounded {height:150px; width:150px; margin-bottom:10px}
 .m-l-small{margin-left:15px;}
 .m-b-large{margin-bottom:30px;}
+.fifth{
+	position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  float: left;
+	width:20%;
+}

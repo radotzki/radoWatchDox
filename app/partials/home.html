@@ -23,15 +23,15 @@
 <div class="col-lg-2" ng-show="token && history.length!=0">
 	<p class="m-l-small">Recent queries</p>
 	<ul class="nav nav-pills nav-stacked" ng-repeat="item in history | reverse">
-		<li><a ng-click="search(item)">{{item}}</a></li>
+		<li><a ng-click="getFromHistoy(item.param, item.data)">{{item.param}}</a></li>
 	</ul>
 </div>
 
 <!-- Images -->
 <div class="col-lg-8" ng-show="token">
 	<div ng-repeat="image in images">
-		<div class="col-lg-3">
-			<img class="img-rounded" src="{{image.images.standard_resolution.url}}" />
+		<div class="fifth">
+			<img class="img-rounded" src="{{image.images.thumbnail.url}}" />
 		</div>
 	</div>
 	<p ng-show="images.length==0"> No results. </p>

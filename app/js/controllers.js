@@ -11,9 +11,10 @@ angular.module('radoWatchDox.controllers', [])
         $location.hash('').path('/home');
     }])
 
-.controller('HomeController', ['$scope', '$http', 'InstagramToken',
-   function($scope, $http, InstagramToken) {
+.controller('HomeController', ['$scope', '$http', 'InstagramToken', 'instagramAuthUrl',
+ function($scope, $http, InstagramToken, instagramAuthUrl) {
 
+    $scope.instagramAuthUrl = instagramAuthUrl;
     $scope.token = InstagramToken();
 
     // if user authorized
@@ -22,20 +23,33 @@ angular.module('radoWatchDox.controllers', [])
         $scope.history = storage ? JSON.parse(storage) : [];
     }
 
+    var successCallback = function(resp, status, headers, config){
+        $scope.images = resp.data;
+    };
+
+    var addHistoryItem = function(){
+        if($scope.history.length > 4){
+            $scope.history.splice(0,1);
+        }
+        $scope.history.push($scope.searchParam);
+        localStorage["history"] = JSON.stringify($scope.history);
+    }
+
     $scope.search = function(item){
         if(!item) {
-            if($scope.history.length > 4){
-                $scope.history.splice(0,1);
-            }
-            $scope.history.push($scope.searchParam);
-            localStorage["history"] = JSON.stringify($scope.history);
+            addHistoryItem();
             item = $scope.searchParam;
             $scope.searchParam = "";
         }
 
-        $http.get('https://api.instagram.com/v1/tags/' + item + '/media/recent?count=20&access_token=' + $scope.token).success(function(data, status, headers, config) {
-         $scope.posts = data.data;
-     });  
+        var config = {
+            params: {
+                access_token: $scope.token,
+                callback: 'JSON_CALLBACK',
+                count: 20
+            }
+        };
+        $http.jsonp('https://api.instagram.com/v1/tags/' + item + '/media/recent', config).success(successCallback); 
     }
 
 }]);

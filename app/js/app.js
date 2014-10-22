@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('radoWatchDox', ['radoWatchDox.services', 'radoWatchDox.controllers', 'ngCookies'])
+angular.module('radoWatchDox', ['radoWatchDox.services', 'radoWatchDox.controllers', 'radoWatchDox.filters'])
 
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $location) {
 	$location.html5Mode(true).hashPrefix('!');

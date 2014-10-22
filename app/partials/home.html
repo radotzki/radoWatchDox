@@ -1,34 +1,40 @@
+<!-- Authorize -->
 <div class="col-lg-4 col-lg-offset-4" ng-show="!token">
-	<a class="btn btn-primary btn-lg btn-block" ng-href="https://instagram.com/oauth/authorize/?client_id=7ec7b39f3a4e4eba812017a561b155af&redirect_uri=http://localhost:5000/callback&response_type=token">
+	<a class="btn btn-primary btn-lg btn-block" ng-href="{{instagramAuthUrl}}">
 		Authorize to Instagram
 	</a>
 </div>
 
-<div class="row" ng-show="token" style="margin-bottom:30px;">
+<!-- Search -->
+<div class="row m-b-large" ng-show="token">
 	<div class="col-lg-4 col-lg-offset-4">
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="search by tag" ng-model="searchParam">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" ng-click="search()">Search!</button>
-			</span>
-		</div>
+		<form>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="search by tag" ng-model="searchParam">
+				<span class="input-group-btn">
+					<button class="btn btn-default submit" ng-click="search()">Search!</button>
+				</span>
+			</div>
+		</form>
 	</div>
 </div>
 
-<div class="col-lg-2">
-<p style="padding-left:15px;">Five last queries</p>
-	<ul class="nav nav-pills nav-stacked" ng-repeat="item in history">
+<!-- History -->
+<div class="col-lg-2" ng-show="token">
+	<p class="m-l-small">Five last queries</p>
+	<ul class="nav nav-pills nav-stacked" ng-repeat="item in history | reverse">
 		<li><a ng-click="search(item)">{{item}}</a></li>
 	</ul>
 </div>
 
-<div class="col-lg-8 ">
-	<div ng-repeat="post in posts| limitTo:20">
+<!-- Images -->
+<div class="col-lg-8" ng-show="token">
+	<div ng-repeat="image in images">
 		<div class="col-lg-3">
-			<img class="img-rounded" src="{{post.images.standard_resolution.url}}" height="200" width="200" style="margin:10px" />
+			<img class="img-rounded" src="{{image.images.standard_resolution.url}}" />
 		</div>
 	</div>
-	<p ng-show="posts.length==0"> No results. </p>
+	<p ng-show="images.length==0"> No results. </p>
 </div>
 
 

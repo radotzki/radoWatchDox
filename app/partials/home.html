@@ -20,8 +20,8 @@
 </div>
 
 <!-- History -->
-<div class="col-lg-2" ng-show="history">
-	<p class="m-l-small">Five last queries</p>
+<div class="col-lg-2" ng-show="history.length!=0">
+	<p class="m-l-small">Recent queries</p>
 	<ul class="nav nav-pills nav-stacked" ng-repeat="item in history | reverse">
 		<li><a ng-click="search(item)">{{item}}</a></li>
 	</ul>
